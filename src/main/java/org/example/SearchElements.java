@@ -31,9 +31,9 @@ public class SearchElements {
         }
     }
     private static boolean isValidInteger(String s){
-        return s.matches("^(0|-?[1-9]\\d*)[eE](0|[1-9]\\d*)$") || s.matches("^(0|-?[1-9]\\d*)$");
+        return s.matches("^(0|-?[1-9]\\d*)([eE](0|[1-9]\\d*))?$");
     }
     private static boolean isValidFloat(String s){
-        return s.matches("^-?(0|[1-9]\\d*)\\.\\d+[eE]-?(\\d+)$") || s.matches("^-?(0|[1-9]\\d*)\\.\\d+$") || s.matches("^(-?[1-9]\\d*)[eE]-([1-9]\\d*)$");
+        return s.matches("^-?(0|[1-9]\\d*)\\.\\d+([eE]-?(\\d+))?$") || s.matches("^(-?[1-9]\\d*)[eE]-([1-9]\\d*)$");
     }
 }

@@ -7,13 +7,13 @@ import java.math.RoundingMode;
 public class WriteStatistics {
     public static void shortStatistic(File fileName) throws IOException {
        try{
-           System.out.println("-------------Краткая статистика для файла " + fileName.getName() + "--------------");
            int count = 0;
            try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
                while (br.readLine() != null) {
                    count++;
                }
            }
+           System.out.println(" ");
            System.out.println("Количество элементов в " + fileName.getName() + ": " + count);
        } catch (NullPointerException _) {}
     }
@@ -21,7 +21,6 @@ public class WriteStatistics {
         shortStatistic(file);
         try {
             String fileName = file.getName();
-            System.out.println("-------------Полная статистика для файла " + fileName + "--------------");
             if (fileName.endsWith("strings.txt")){
                 try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                     String line;
@@ -55,17 +54,16 @@ public class WriteStatistics {
                         if (tmp.compareTo(min) < 0) {
                             min = tmp;
                         }
-                        sum = sum.add(tmp);
+                        sum = sum.add(tmp).setScale(5, RoundingMode.HALF_UP);
                         count = count.add(BigDecimal.valueOf(1));
                     }
-                    average = sum.divide(count, 5, RoundingMode.HALF_UP);
+                    average = sum.divide(count, 5, RoundingMode.HALF_UP).stripTrailingZeros();
                     System.out.println("Минимальное значение в " + fileName + ": " + min);
                     System.out.println("Максимальное значение в " + fileName + ": " + max);
-                    System.out.println("Сумма элементов в " + fileName + ": " + sum.setScale(5, RoundingMode.HALF_UP));
+                    System.out.println("Сумма элементов в " + fileName + ": " + sum.stripTrailingZeros());
                     System.out.println("Среднее значение в " + fileName + ": " + average);
                 }
             }
-            System.out.println(" ");
         } catch (NullPointerException _) {}
     }
 }
