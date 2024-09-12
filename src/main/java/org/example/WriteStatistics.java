@@ -68,7 +68,7 @@ public class WriteStatistics {
             }
         } catch (NullPointerException _) {}
     }
-    public static String formatOutputNumbers (BigDecimal number) {
+    private static String formatOutputNumbers (BigDecimal number) {
         if (number.abs().compareTo(new BigDecimal("1E10")) >= 0 || number.abs().compareTo(new BigDecimal("1E-10")) < 0) {
             DecimalFormat df = new DecimalFormat("#.#####E0");
             return df.format(number);
