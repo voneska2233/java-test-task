@@ -3,6 +3,7 @@ package org.example;
 import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class WriteStatistics {
     public static void shortStatistic(File fileName) throws IOException {
@@ -45,8 +46,8 @@ public class WriteStatistics {
                     BigDecimal min = new BigDecimal(line);
                     BigDecimal sum = BigDecimal.ZERO;
                     BigDecimal average;
-                    BigDecimal count = BigDecimal.ONE;
-                    while ((line = br.readLine()) != null) {
+                    BigDecimal count = BigDecimal.ZERO;
+                    while (line != null) {
                         BigDecimal tmp = new BigDecimal(line);
                         if (tmp.compareTo(max) > 0) {
                             max = tmp;
@@ -54,16 +55,24 @@ public class WriteStatistics {
                         if (tmp.compareTo(min) < 0) {
                             min = tmp;
                         }
-                        sum = sum.add(tmp).setScale(5, RoundingMode.HALF_UP);
+                        sum = sum.add(tmp);
                         count = count.add(BigDecimal.valueOf(1));
+                        line = br.readLine();
                     }
-                    average = sum.divide(count, 5, RoundingMode.HALF_UP).stripTrailingZeros();
+                    average = sum.divide(count, RoundingMode.HALF_UP);
                     System.out.println("Минимальное значение в " + fileName + ": " + min);
                     System.out.println("Максимальное значение в " + fileName + ": " + max);
-                    System.out.println("Сумма элементов в " + fileName + ": " + sum.stripTrailingZeros());
-                    System.out.println("Среднее значение в " + fileName + ": " + average);
+                    System.out.println("Сумма элементов в " + fileName + ": " + formatOutputNumbers(sum));
+                    System.out.println("Среднее значение в " + fileName + ": " + formatOutputNumbers(average));
                 }
             }
         } catch (NullPointerException _) {}
+    }
+    public static String formatOutputNumbers (BigDecimal number) {
+        if (number.abs().compareTo(new BigDecimal("1E10")) >= 0 || number.abs().compareTo(new BigDecimal("1E-10")) < 0) {
+            DecimalFormat df = new DecimalFormat("#.#####E0");
+            return df.format(number);
+        }
+        return number.setScale(5, RoundingMode.HALF_UP).toPlainString();
     }
 }

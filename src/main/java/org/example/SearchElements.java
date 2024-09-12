@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 public class SearchElements {
@@ -30,10 +32,20 @@ public class SearchElements {
             System.exit(1);
         }
     }
-    private static boolean isValidInteger(String s){
-        return s.matches("^(0|-?[1-9]\\d*)([eE](0|[1-9]\\d*))?$");
-    }
-    private static boolean isValidFloat(String s){
-        return s.matches("^-?(0|[1-9]\\d*)\\.\\d+([eE]-?(\\d+))?$") || s.matches("^(-?[1-9]\\d*)[eE]-([1-9]\\d*)$");
-    }
+        private static boolean isValidInteger(String s){
+          try {
+              new BigInteger(new BigDecimal(s).toPlainString());
+              return true;
+          }catch (NumberFormatException e){
+              return false;
+          }
+        }
+        private static boolean isValidFloat(String s){
+            try {
+                new BigDecimal(s);
+                return true;
+            }catch (NumberFormatException e){
+                return false;
+            }
+        }
 }
