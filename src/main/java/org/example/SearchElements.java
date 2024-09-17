@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 public class SearchElements {
-    public static void searchElements(String fileInputName, List<String> listOfInteger, List<String> listOfFloat, List<String> listOfString) throws IOException {
+    public static void searchElements(String fileInputName, List<String> listOfInteger, List<String> listOfFloat, List<String> listOfString) {
         try {
             try (BufferedReader br = new BufferedReader(new FileReader(fileInputName))){
                 String line;
@@ -31,21 +31,27 @@ public class SearchElements {
             System.err.println("Файл " + fileInputName + " не найден");
             System.exit(1);
         }
+        catch (IOException e){
+            System.out.println("Ошибка при фильтрации файлов");
+            System.exit(1);
+        }
     }
-        private static boolean isValidInteger(String s){
-          try {
-              new BigInteger(new BigDecimal(s).toPlainString());
-              return true;
-          }catch (NumberFormatException e){
-              return false;
-          }
+
+    private static boolean isValidInteger(String element) {
+        try {
+            new BigInteger(new BigDecimal(element).toPlainString());
+            return true;
+        }catch (NumberFormatException e){
+            return false;
         }
-        private static boolean isValidFloat(String s){
-            try {
-                new BigDecimal(s);
-                return true;
-            }catch (NumberFormatException e){
-                return false;
-            }
+    }
+
+    private static boolean isValidFloat(String element){
+        try {
+            new BigDecimal(element);
+            return true;
+        }catch (NumberFormatException e){
+            return false;
         }
+    }
 }

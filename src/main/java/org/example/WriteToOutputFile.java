@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.List;
 
 public class WriteToOutputFile {
-    public static File writeToOutputFile(List<String> listOfElements, String fileName, boolean boolUpdate) throws IOException {
+    public static File writeToOutputFile(List<String> listOfElements, String fileName, boolean boolUpdate) {
         if (!listOfElements.isEmpty()) {
             try {
                 File file = new File(fileName);
@@ -15,8 +15,13 @@ public class WriteToOutputFile {
                     }
                 }
                 return file;
-            } catch (FileNotFoundException e) {
+            }
+            catch (FileNotFoundException e) {
                 System.err.println("Неправильно указан путь для записи файлов");
+                System.exit(1);
+            }
+            catch (IOException e) {
+                System.err.println("Ошибка записи в файл");
                 System.exit(1);
             }
         }
