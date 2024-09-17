@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-public class WriteStatistics {
+public class ProcessingStatistics {
     public static void shortStatistic(File file) {
        try{
            int count = 0;

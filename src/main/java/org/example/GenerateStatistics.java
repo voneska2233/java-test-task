@@ -14,12 +14,12 @@ public class GenerateStatistics {
     public void generateStatistics() {
         if (arguments.getSetOfCommands().contains("-s")) {
             for (File file : files.getListOfFile()) {
-                WriteStatistics.shortStatistic(file);
+                ProcessingStatistics.shortStatistic(file);
             }
         }
         if (arguments.getSetOfCommands().contains("-f")) {
             for (File file : files.getListOfFile()) {
-                WriteStatistics.longStatistic(file);
+                ProcessingStatistics.longStatistic(file);
             }
         }
     }
